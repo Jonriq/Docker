@@ -1,41 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My first dynamic Website</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Richard Quansah’s Portfolio</title>
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <style>
+    /* BACK TO SIMPLE.CSS DEFAULTS — let it center for us */
+    html, body {
+      /* no overrides here! */
+    }
+
+    /* HEADER BAR (unchanged) */
+    header.site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      color: #fff;
+      padding: 1em 2em;
+    }
+    header.site-header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+    }
+    nav.site-nav {
+      display: flex;
+      margin-right: 1.5em;
+    }
+    nav.site-nav a {
+      color: #fff !important;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 1em;
+      padding: 0.25em 0.5em;
+    }
+    nav.site-nav a:hover {
+      text-decoration: underline;
+    }
+    img.header-photo {
+      width: 80px; height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+    }
+
+    /* MAIN CONTENT — centered by Simple.css, with a max-width and padding */
+    main.content {
+      margin: 2em auto;         /* auto-margin centers this block */
+      max-width: 60ch;          /* roughly 60 characters wide */
+      padding: 0 1em;           /* some breathing room on small screens */
+    }
+    ul.visit-list {
+      list-style: disc inside;
+      padding: 0;
+      margin-bottom: 2em;
+    }
+    ul.visit-list li {
+      margin: 0.25em 0;
+    }
+
+    /* FOOTER — centered text at bottom */
+    footer.site-footer {
+      text-align: center;
+      padding: 1em 0;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
-  <!-- navigation menu -->
-  <nav>
-    <a href="{{ url_for('hello') }}">Home</a>
-    <a href="{{ url_for('titanic') }}">Titanic</a>
-    <a href="https://github.com/YourGithubUsername">About</a>
-  </nav>
 
-  <main>
-    <h1>I have been seen {{ count }} times.</h1>
-    <ul>
+  <header class="site-header">
+    <h1>Welcome to Richard Quansah’s Portfolio Space</h1>
+    <div class="header-controls">
+      <nav class="site-nav">
+        <a href="{{ url_for('hello') }}">Home</a>
+        <a href="{{ url_for('titanic') }}">Titanic</a>
+        <a href="https://github.com/joric20" target="_blank">About</a>
+        <a href="https://www.hwr-berlin.de" target="_blank">Visit HWR Berlin</a>
+      </nav>
+      <img
+        src="{{ url_for('static', filename='images/myphoto.jpg') }}"
+        alt="Richard Quansah"
+        class="header-photo"
+      >
+    </div>
+  </header>
+
+  <main class="content">
+    <h2>I have been seen {{ count }} times.</h2>
+    <ul class="visit-list">
       {% for i in range(1, count+1) %}
-        <li>{{ i }}: Hello {{ name }}! </li>
+        <li>{{ i }}: Hello {{ name }}!</li>
       {% endfor %}
     </ul>
-
-    <!-- link to HWR Berlin -->
-    <p><a href="https://www.hwr-berlin.de" target="_blank">
-      Visit HWR Berlin homepage
-    </a></p>
-
-    <!-- your image -->
-    <img src="{{ url_for('static', filename='images/myphoto.jpg') }}"
-         alt="My photo" style="max-width:200px;">
-
   </main>
 
-  <!-- footer -->
-  <footer>
-    &copy; 2025 Your Name Here
+  <footer class="site-footer">
+    &copy; 2025 Richard Quansah
   </footer>
 </body>
 </html>

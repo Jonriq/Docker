@@ -1,29 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Titanic Data</title>
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <style>
+    /* GLOBAL LEFT-ALIGN */
+    html, body {
+      margin: 0;
+      padding: 0;
+      text-align: left !important;
+      max-width: none !important;
+    }
+
+    /* HEADER BAR (unchanged) */
+    header.site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      color: white;
+      padding: 1em 2em;
+    }
+    header.site-header h1 { margin: 0; font-size: 2rem; }
+    .header-controls { display: flex; align-items: center; }
+    nav.site-nav { display: flex; margin-right: 1.5em; }
+    nav.site-nav a {
+      color: white !important;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 1em;
+      padding: 0.25em 0.5em;
+      font-size: 0.9rem;
+    }
+    nav.site-nav a:hover { text-decoration: underline; }
+    img.header-photo {
+      width: 80px; height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+    }
+
+    /* MAIN CONTENT container */
+    main.content {
+      margin: 2em 0;
+    }
+    body, th, td { font-size: 0.85rem; }
+
+    /* FULL-BLEED HACK */
+    .bleed {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+    }
+    /* indent the heading 2ch */
+    .bleed h2 {
+      font-size: 1.25rem;
+      margin: 1em 0 0.5em;
+      padding-left: 2ch;
+    }
+    /* table flush under the heading */
+    .bleed .data-table {
+      width: calc(100% - 2ch);
+      margin: 0;
+      margin-left: 2ch;
+      border-collapse: collapse;
+      table-layout: auto;
+    }
+    .bleed .data-table th {
+      background: #0077cc;
+      color: #fff;
+      padding: 0.5em;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .bleed .data-table td {
+      padding: 0.5em;
+      border-top: 1px solid #ddd;
+      white-space: nowrap;
+    }
+    .bleed .data-table tr:nth-child(even) {
+      background: #f5f5f5;
+    }
+    /* chart likewise */
+    .bleed .chart-img {
+      display: block;
+      width: calc(50% - 2ch) !important;
+      max-width: none !important;
+      height: auto;
+      margin: 1em 0 0 2ch !important;
+    }
+
+    /* FOOTER (unchanged) */
+    footer.site-footer {
+      text-align: right;
+      padding: 1em 2em;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <a href="{{ url_for('hello') }}">Home</a>
-    <a href="{{ url_for('titanic') }}">Titanic</a>
-    <a href="https://github.com/YourGithubUsername">About</a>
-  </nav>
 
-  <main>
-    <h1>Titanic: First 5 Rows</h1>
-    <!-- Pandas table -->
-    {{ tables|safe }}
+  <header class="site-header">
+    <h1>Titanic Dataset Viewer</h1>
+    <div class="header-controls">
+      <nav class="site-nav">
+        <a href="{{ url_for('hello') }}">Home</a>
+        <a href="{{ url_for('titanic') }}">Titanic</a>
+        <a href="https://github.com/joric20" target="_blank">About</a>
+        <a href="https://www.hwr-berlin.de" target="_blank">Visit HWR Berlin</a>
+      </nav>
+      <img
+        src="{{ url_for('static', filename='images/myphoto.jpg') }}"
+        alt="Richard Quansah"
+        class="header-photo"
+      >
+    </div>
+  </header>
 
-    <h2>Survivors by Sex</h2>
-    <!-- chart image -->
-    <img src="{{ chart_url }}" alt="Survivors by Sex">
+  <main class="content">
+    <div class="bleed">
+      <h2>First 5 Rows</h2>
+      {{ tables|safe }}
+    </div>
+
+    <div class="bleed">
+      <h2>Survivors by Sex</h2>
+      <img src="{{ chart_url }}"
+           alt="Survivors by Sex"
+           class="chart-img">
+    </div>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     &copy; 2025 Richard Quansah
   </footer>
 </body>
